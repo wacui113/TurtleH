@@ -284,6 +284,7 @@
             this.Name = "mainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TurtleH ";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.pnlSelect.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudRestIn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudRemind)).EndInit();

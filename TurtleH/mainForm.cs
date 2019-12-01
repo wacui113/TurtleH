@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace TurtleH
@@ -10,6 +11,12 @@ namespace TurtleH
 
         Timer timer;
 
+        // Path variable
+        private string path = AppDomain.CurrentDomain.BaseDirectory;
+        private string appStatusFileName = "\\status\\status_" + DateTime.Now.ToShortDateString();
+        private string errorFileName = "\\errors\\error_" + DateTime.Now.ToShortDateString();
+
+        // Needed variable
         private int tickValue;
         private bool stop = false;
         private bool notify = false;
@@ -17,6 +24,14 @@ namespace TurtleH
         public mainForm()
         {
             InitializeComponent();
+
+            WriteToFile(appStatusFileName,
+                "Application is started at " + DateTime.Now.ToString()
+                ); ;
+
+            // Determine a Duration of a Locked Workstation
+            Microsoft.Win32.SystemEvents.SessionSwitch += SystemEvents_SessionSwitch;
+            Microsoft.Win32.SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
 
             timer = new Timer();
             timer.Interval = 1000;
@@ -28,8 +43,53 @@ namespace TurtleH
             pnlSelect.Visible = true;
 
             notifyIcon.Visible = true;
+                        
+        }
 
-            //SetStartup(true);
+        private void SystemEvents_PowerModeChanged(object sender, PowerModeChangedEventArgs e)
+        {
+            try
+            {
+                switch (e.Mode)
+                {
+                    case PowerModes.Resume:
+                        Start();
+                        break;
+
+                    case PowerModes.Suspend:
+                        Stop();
+                        break;
+                }
+            }
+            catch (Exception err)
+            {
+                WriteToFile(errorFileName, err.Message);
+
+                TerminatedApp();
+            }
+        }
+
+        private void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
+        {
+            try
+            {
+                switch (e.Reason)
+                {
+                    case SessionSwitchReason.SessionLock:
+                        Stop();
+                        break;
+
+                    case SessionSwitchReason.SessionUnlock:
+                        Start();
+                        break;
+                }
+            }
+            catch (Exception err)
+            {
+                WriteToFile(errorFileName, err.Message);
+
+                TerminatedApp();
+            }
         }
 
         // Startup registry key and value
@@ -122,11 +182,6 @@ namespace TurtleH
             this.ShowIcon = true;
         }
 
-        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void ChkbStartup_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = sender as CheckBox;
@@ -134,6 +189,15 @@ namespace TurtleH
             SetStartup(cb.Checked);
         }
 
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TerminatedApp();
+        }
+        
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            TerminatedApp();
+        }
         #endregion
 
         #region Methods
@@ -151,6 +215,10 @@ namespace TurtleH
             pnlSelect.Visible = false;
 
             timer.Enabled = true;
+
+            WriteToFile(appStatusFileName,
+                "Timer is started at " + DateTime.Now.ToString()
+                ); ;
         }
 
 
@@ -170,16 +238,29 @@ namespace TurtleH
 
             if (stop == false)
             {
-                restForm restF = new restForm();
-                restF.tickRestTime = Convert.ToInt32(nudRestIn.Value);
-                this.Hide();
-                restF.ShowDialog();
+                try
+                {
+                    restForm restF = new restForm();
+                    restF.tickRestTime = Convert.ToInt32(nudRestIn.Value);
+                    this.Hide();
+                    restF.ShowDialog();
+                }
+                catch (Exception err)
+                {
+                    WriteToFile(errorFileName, err.Message);
+
+                    TerminatedApp();
+                }
 
                 if (this.ShowInTaskbar == true)
                 {
                     this.Show();
                 }
             }
+
+            WriteToFile(appStatusFileName,
+               "Timer is stopped at " + DateTime.Now.ToString()
+                ); ;
         }
 
         private string DisplayTime()
@@ -187,8 +268,43 @@ namespace TurtleH
             return (tickValue / 60).ToString("00") + ":" + (tickValue % 60).ToString("00");
         }
 
+        private void WriteToFile(string path, string message)
+        {
+            if (!Directory.Exists(this.path))
+            {
+                Directory.CreateDirectory(this.path);
+            }
+
+            if (!File.Exists(path))
+            {
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                    sw.WriteLine(message);
+                }
+            }
+            else
+            {
+                using (StreamWriter sw = File.AppendText(path))
+                {
+                    sw.WriteLine(message);
+                }
+            }
+        }
+
+        private void TerminatedApp()
+        {
+            Microsoft.Win32.SystemEvents.SessionSwitch -= SystemEvents_SessionSwitch;
+            Microsoft.Win32.SystemEvents.PowerModeChanged -= SystemEvents_PowerModeChanged;
+
+            WriteToFile(appStatusFileName,
+                "Application is terminated at " + DateTime.Now.ToString()
+                ); ;
+
+            this.Dispose();
+
+            Application.Exit();
+        }
         #endregion
 
-        
     }
 }
