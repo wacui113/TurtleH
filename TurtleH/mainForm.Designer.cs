@@ -45,8 +45,9 @@
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showWindowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnHideToTray = new System.Windows.Forms.Button();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnHideToTray = new System.Windows.Forms.Button();
+            this.chkbStartup = new System.Windows.Forms.CheckBox();
             this.pnlSelect.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudRestIn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudRemind)).BeginInit();
@@ -202,7 +203,7 @@
             // 
             // contextMenuStrip
             // 
-            this.contextMenuStrip.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.contextMenuStrip.BackColor = System.Drawing.Color.White;
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startToolStripMenuItem,
             this.timerToolStripMenuItem,
@@ -213,26 +214,34 @@
             // 
             // startToolStripMenuItem
             // 
-            this.startToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Window;
+            this.startToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.StartToolStripMenuItem_Click);
             // 
             // timerToolStripMenuItem
             // 
-            this.timerToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Window;
+            this.timerToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.timerToolStripMenuItem.Name = "timerToolStripMenuItem";
-            this.timerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.timerToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.timerToolStripMenuItem.Text = "00:00";
             // 
             // showWindowsToolStripMenuItem
             // 
-            this.showWindowsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Window;
+            this.showWindowsToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.showWindowsToolStripMenuItem.Name = "showWindowsToolStripMenuItem";
-            this.showWindowsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showWindowsToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.showWindowsToolStripMenuItem.Text = "Show Windows";
             this.showWindowsToolStripMenuItem.Click += new System.EventHandler(this.ShowWindowsToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // btnHideToTray
             // 
@@ -245,13 +254,17 @@
             this.btnHideToTray.UseVisualStyleBackColor = true;
             this.btnHideToTray.Click += new System.EventHandler(this.BtnHideToTray_Click);
             // 
-            // exitToolStripMenuItem
+            // chkbStartup
             // 
-            this.exitToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Window;
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            this.chkbStartup.AutoSize = true;
+            this.chkbStartup.ForeColor = System.Drawing.Color.White;
+            this.chkbStartup.Location = new System.Drawing.Point(27, 168);
+            this.chkbStartup.Name = "chkbStartup";
+            this.chkbStartup.Size = new System.Drawing.Size(117, 17);
+            this.chkbStartup.TabIndex = 4;
+            this.chkbStartup.Text = "Start with Windows";
+            this.chkbStartup.UseVisualStyleBackColor = true;
+            this.chkbStartup.CheckedChanged += new System.EventHandler(this.ChkbStartup_CheckedChanged);
             // 
             // mainForm
             // 
@@ -259,8 +272,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(365, 158);
+            this.ClientSize = new System.Drawing.Size(365, 197);
             this.ContextMenuStrip = this.contextMenuStrip;
+            this.Controls.Add(this.chkbStartup);
             this.Controls.Add(this.pnlSelect);
             this.Controls.Add(this.pnlDisplay);
             this.Controls.Add(this.btnHideToTray);
@@ -276,6 +290,7 @@
             this.pnlDisplay.ResumeLayout(false);
             this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -298,5 +313,6 @@
         private System.Windows.Forms.Button btnHideToTray;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.CheckBox chkbStartup;
     }
 }

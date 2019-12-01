@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Windows.Forms;
 
 namespace TurtleH
@@ -15,6 +16,8 @@ namespace TurtleH
 
         public mainForm()
         {
+            SetStartup(false);
+
             InitializeComponent();
 
             timer = new Timer();
@@ -27,6 +30,29 @@ namespace TurtleH
             pnlSelect.Visible = true;
 
             notifyIcon.Visible = true;
+
+            //SetStartup(true);
+        }
+
+        // Startup registry key and value
+        public static readonly string StartupKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
+        public static readonly string StartupValue = "TurtleH";
+
+        private void SetStartup(bool startupStatus)
+        {
+            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(StartupKey, true))
+            {
+                if (startupStatus == true)
+                {
+                    key.SetValue(StartupValue, Application.ExecutablePath.ToString());
+                    key.Close();
+                }
+                else
+                {
+                    key.DeleteValue(StartupValue);
+                    key.Close();
+                }
+            }
         }
 
         #region Events
@@ -39,7 +65,7 @@ namespace TurtleH
          */
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if(tickValue <= 0)
+            if (tickValue <= 0)
             {
                 Stop();
                 Start();
@@ -47,7 +73,7 @@ namespace TurtleH
             else
             {
                 tickValue--;
-                if(tickValue <= 10 && notify == false)
+                if (tickValue <= 10 && notify == false)
                 {
                     notifyIcon.ShowBalloonTip(3, "Time to rest", "Begin resting after " + tickValue + "s", ToolTipIcon.Info);
                     notify = true;
@@ -56,7 +82,7 @@ namespace TurtleH
 
             timerToolStripMenuItem.Text = lblDisplayTime.Text = DisplayTime();
         }
-      
+
         private void BtnStart_Click(object sender, EventArgs e)
         {
             if (timer.Enabled == false)
@@ -78,7 +104,6 @@ namespace TurtleH
             this.ShowIcon = false;
         }
 
-
         /* Menu on tray icon
          * ---
          * Start/Stop function on tray icon
@@ -98,10 +123,17 @@ namespace TurtleH
             this.ShowInTaskbar = true;
             this.ShowIcon = true;
         }
-        
+
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void ChkbStartup_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+
+            SetStartup(cb.Checked);
         }
 
         #endregion
@@ -138,13 +170,17 @@ namespace TurtleH
             pnlDisplay.Visible = false;
             pnlSelect.Visible = true;
 
-            if(stop == false)
+            if (stop == false)
             {
                 restForm restF = new restForm();
                 restF.tickRestTime = Convert.ToInt32(nudRestIn.Value);
                 this.Hide();
                 restF.ShowDialog();
-                this.Show();
+
+                if (this.ShowInTaskbar == true)
+                {
+                    this.Show();
+                }
             }
         }
 
@@ -154,5 +190,7 @@ namespace TurtleH
         }
 
         #endregion
+
+        
     }
 }
