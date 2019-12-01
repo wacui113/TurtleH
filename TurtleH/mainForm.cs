@@ -16,8 +16,6 @@ namespace TurtleH
 
         public mainForm()
         {
-            SetStartup(false);
-
             InitializeComponent();
 
             timer = new Timer();
