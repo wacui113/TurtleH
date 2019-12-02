@@ -1,0 +1,10 @@
+D:\Documents\linhtinh\Release\TurtleH\TurtleH\bin\Release\TurtleH.exe.config
+D:\Documents\linhtinh\Release\TurtleH\TurtleH\bin\Release\TurtleH.exe
+D:\Documents\linhtinh\Release\TurtleH\TurtleH\bin\Release\TurtleH.pdb
+D:\Documents\linhtinh\Release\TurtleH\TurtleH\obj\Release\TurtleH.Properties.Resources.resources
+D:\Documents\linhtinh\Release\TurtleH\TurtleH\obj\Release\TurtleH.mainForm.resources
+D:\Documents\linhtinh\Release\TurtleH\TurtleH\obj\Release\TurtleH.restForm.resources
+D:\Documents\linhtinh\Release\TurtleH\TurtleH\obj\Release\TurtleH.csproj.GenerateResource.cache
+D:\Documents\linhtinh\Release\TurtleH\TurtleH\obj\Release\TurtleH.csproj.CoreCompileInputs.cache
+D:\Documents\linhtinh\Release\TurtleH\TurtleH\obj\Release\TurtleH.exe
+D:\Documents\linhtinh\Release\TurtleH\TurtleH\obj\Release\TurtleH.pdb

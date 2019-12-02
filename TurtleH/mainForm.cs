@@ -1,6 +1,6 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using TurtleH.Controller;
 
 namespace TurtleH
 {
@@ -29,27 +29,10 @@ namespace TurtleH
 
             notifyIcon.Visible = true;
 
-            //SetStartup(true);
-        }
-
-        // Startup registry key and value
-        public static readonly string StartupKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
-        public static readonly string StartupValue = "TurtleH";
-
-        private void SetStartup(bool startupStatus)
-        {
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(StartupKey, true))
+            if (chkbStartup.Checked = StartWithWindows.Instance.CheckStartupState())
             {
-                if (startupStatus == true)
-                {
-                    key.SetValue(StartupValue, Application.ExecutablePath.ToString());
-                    key.Close();
-                }
-                else
-                {
-                    key.DeleteValue(StartupValue);
-                    key.Close();
-                }
+                BtnHideToTray_Click(btnHideToTray, new EventArgs());
+                BtnStart_Click(btnStart, new EventArgs());
             }
         }
 
@@ -131,7 +114,7 @@ namespace TurtleH
         {
             CheckBox cb = sender as CheckBox;
 
-            SetStartup(cb.Checked);
+            StartWithWindows.Instance.SetStartup(cb.Checked);
         }
 
         #endregion
