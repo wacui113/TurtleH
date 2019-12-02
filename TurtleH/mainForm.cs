@@ -21,6 +21,10 @@ namespace TurtleH
         {
             InitializeComponent();
 
+            // Determine a Duration of a Locked Workstation
+            SystemEvents.SessionSwitch += SystemEvents_SessionSwitch;
+            Microsoft.Win32.SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
+
             Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
                 "Application is executed"
                 );
@@ -66,6 +70,51 @@ namespace TurtleH
             }
 
             timerToolStripMenuItem.Text = lblDisplayTime.Text = DisplayTime();
+        }
+        private void SystemEvents_PowerModeChanged(object sender, PowerModeChangedEventArgs e)
+        {
+            try
+            {
+                switch (e.Mode)
+                {
+                    case PowerModes.Resume:
+                        Start();
+                        break;
+
+                    case PowerModes.Suspend:
+                        Stop();
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.Instance.WriteToFile(Logs.Instance.serviceFile, ex.Message);
+
+                TerminatedApp();
+            }
+        }
+
+        private void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
+        {
+            try
+            {
+                switch (e.Reason)
+                {
+                    case SessionSwitchReason.SessionLock:
+                        Stop();
+                        break;
+
+                    case SessionSwitchReason.SessionUnlock:
+                        Start();
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.Instance.WriteToFile(Logs.Instance.serviceFile, ex.Message);
+
+                TerminatedApp();
+            }
         }
 
         private void BtnStart_Click(object sender, EventArgs e)
@@ -186,6 +235,9 @@ namespace TurtleH
 
         private void TerminatedApp()
         {
+            Microsoft.Win32.SystemEvents.SessionSwitch -= SystemEvents_SessionSwitch;
+            Microsoft.Win32.SystemEvents.PowerModeChanged -= SystemEvents_PowerModeChanged;
+
             Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
                 "Application is terminated"
                 ); ;
