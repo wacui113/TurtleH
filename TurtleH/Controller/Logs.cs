@@ -6,7 +6,7 @@ namespace TurtleH.Controller
     class Logs
     {
         public readonly string path = AppDomain.CurrentDomain.BaseDirectory + "\\Logs";
-        public readonly string serviceFile = "\\service\\service_" + DateTime.Now.ToShortDateString() + ".txt";
+        public readonly string serviceFile = "\\service_" + DateTime.Now.ToShortDateString().Replace('/','_') + ".txt";
         // public readonly string errorFile = "\\error\\error_" + DateTime.Now.ToShortDateString() + ".txt";
 
         private static Logs instance;
@@ -26,25 +26,27 @@ namespace TurtleH.Controller
 
         public void WriteToFile(string path, string message)
         {
+
             if(!Directory.Exists(this.path))
             {
                 Directory.CreateDirectory(this.path);
             }
 
             string fullPath = this.path + path;
+            string fullMessage = DateTime.Now.ToString() + " | " + message;
 
             if (!File.Exists(fullPath))
             {
                 using (StreamWriter sw = File.CreateText(fullPath))
                 {
-                    sw.WriteLine(message);
+                    sw.WriteLine(fullMessage);
                 }
             }
             else
             {
                 using (StreamWriter sw = File.AppendText(fullPath))
                 {
-                    sw.WriteLine(message);
+                    sw.WriteLine(fullMessage);
                 }
             }
         }

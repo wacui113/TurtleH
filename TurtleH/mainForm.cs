@@ -22,8 +22,8 @@ namespace TurtleH
             InitializeComponent();
 
             Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
-                "Application is started at " + DateTime.Now.ToString()
-                ); ;
+                "Application is executed"
+                );
 
             timer = new Timer();
             timer.Interval = 1000;
@@ -142,7 +142,7 @@ namespace TurtleH
             timer.Enabled = true;
 
             Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
-                "Timer is started at " + DateTime.Now.ToString()
+                "Timer is started"
                 ); ;
         }
 
@@ -175,7 +175,7 @@ namespace TurtleH
             }
 
             Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
-               "Timer is stopped at " + DateTime.Now.ToString()
+                "Timer is stopped"
                 ); ;
         }
 
@@ -186,10 +186,8 @@ namespace TurtleH
 
         private void TerminatedApp()
         {
-            
-
             Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
-                "Application is terminated at " + DateTime.Now.ToString()
+                "Application is terminated"
                 ); ;
 
             this.Dispose();
