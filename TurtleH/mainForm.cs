@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
+using TurtleH.Controller;
 
 namespace TurtleH
 {
@@ -10,11 +11,6 @@ namespace TurtleH
         private const int TwentyMinutes = 1200;
 
         Timer timer;
-
-        // Path variable
-        private string path = AppDomain.CurrentDomain.BaseDirectory;
-        private string appStatusFileName = "\\status\\status_" + DateTime.Now.ToShortDateString();
-        private string errorFileName = "\\errors\\error_" + DateTime.Now.ToShortDateString();
 
         // Needed variable
         private int tickValue;
@@ -25,13 +21,9 @@ namespace TurtleH
         {
             InitializeComponent();
 
-            WriteToFile(appStatusFileName,
+            Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
                 "Application is started at " + DateTime.Now.ToString()
                 ); ;
-
-            // Determine a Duration of a Locked Workstation
-            Microsoft.Win32.SystemEvents.SessionSwitch += SystemEvents_SessionSwitch;
-            Microsoft.Win32.SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
 
             timer = new Timer();
             timer.Interval = 1000;
@@ -46,72 +38,7 @@ namespace TurtleH
                         
         }
 
-        private void SystemEvents_PowerModeChanged(object sender, PowerModeChangedEventArgs e)
-        {
-            try
-            {
-                switch (e.Mode)
-                {
-                    case PowerModes.Resume:
-                        Start();
-                        break;
-
-                    case PowerModes.Suspend:
-                        Stop();
-                        break;
-                }
-            }
-            catch (Exception err)
-            {
-                WriteToFile(errorFileName, err.Message);
-
-                TerminatedApp();
-            }
-        }
-
-        private void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
-        {
-            try
-            {
-                switch (e.Reason)
-                {
-                    case SessionSwitchReason.SessionLock:
-                        Stop();
-                        break;
-
-                    case SessionSwitchReason.SessionUnlock:
-                        Start();
-                        break;
-                }
-            }
-            catch (Exception err)
-            {
-                WriteToFile(errorFileName, err.Message);
-
-                TerminatedApp();
-            }
-        }
-
-        // Startup registry key and value
-        public static readonly string StartupKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
-        public static readonly string StartupValue = "TurtleH";
-
-        private void SetStartup(bool startupStatus)
-        {
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(StartupKey, true))
-            {
-                if (startupStatus == true)
-                {
-                    key.SetValue(StartupValue, Application.ExecutablePath.ToString());
-                    key.Close();
-                }
-                else
-                {
-                    key.DeleteValue(StartupValue);
-                    key.Close();
-                }
-            }
-        }
+        
 
         #region Events
         /* 
@@ -185,8 +112,6 @@ namespace TurtleH
         private void ChkbStartup_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = sender as CheckBox;
-
-            SetStartup(cb.Checked);
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -216,7 +141,7 @@ namespace TurtleH
 
             timer.Enabled = true;
 
-            WriteToFile(appStatusFileName,
+            Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
                 "Timer is started at " + DateTime.Now.ToString()
                 ); ;
         }
@@ -238,19 +163,10 @@ namespace TurtleH
 
             if (stop == false)
             {
-                try
-                {
-                    restForm restF = new restForm();
-                    restF.tickRestTime = Convert.ToInt32(nudRestIn.Value);
-                    this.Hide();
-                    restF.ShowDialog();
-                }
-                catch (Exception err)
-                {
-                    WriteToFile(errorFileName, err.Message);
-
-                    TerminatedApp();
-                }
+                restForm restF = new restForm();
+                restF.tickRestTime = Convert.ToInt32(nudRestIn.Value);
+                this.Hide();
+                restF.ShowDialog();
 
                 if (this.ShowInTaskbar == true)
                 {
@@ -258,7 +174,7 @@ namespace TurtleH
                 }
             }
 
-            WriteToFile(appStatusFileName,
+            Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
                "Timer is stopped at " + DateTime.Now.ToString()
                 ); ;
         }
@@ -268,35 +184,11 @@ namespace TurtleH
             return (tickValue / 60).ToString("00") + ":" + (tickValue % 60).ToString("00");
         }
 
-        private void WriteToFile(string path, string message)
-        {
-            if (!Directory.Exists(this.path))
-            {
-                Directory.CreateDirectory(this.path);
-            }
-
-            if (!File.Exists(path))
-            {
-                using (StreamWriter sw = File.CreateText(path))
-                {
-                    sw.WriteLine(message);
-                }
-            }
-            else
-            {
-                using (StreamWriter sw = File.AppendText(path))
-                {
-                    sw.WriteLine(message);
-                }
-            }
-        }
-
         private void TerminatedApp()
         {
-            Microsoft.Win32.SystemEvents.SessionSwitch -= SystemEvents_SessionSwitch;
-            Microsoft.Win32.SystemEvents.PowerModeChanged -= SystemEvents_PowerModeChanged;
+            
 
-            WriteToFile(appStatusFileName,
+            Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
                 "Application is terminated at " + DateTime.Now.ToString()
                 ); ;
 
