@@ -6,7 +6,7 @@ namespace TurtleH.Controller
     class Logs
     {
         public readonly string path = AppDomain.CurrentDomain.BaseDirectory + "\\Logs";
-        public readonly string serviceFile = "\\service_" + DateTime.Now.ToShortDateString().Replace('/','_') + ".txt";
+        public readonly string serviceFile = "\\log_" + DateTime.Now.ToShortDateString().Replace('/','_') + ".txt";
         // public readonly string errorFile = "\\error\\error_" + DateTime.Now.ToShortDateString() + ".txt";
 
         private static Logs instance;
