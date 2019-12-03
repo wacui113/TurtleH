@@ -39,11 +39,13 @@ namespace TurtleH.Controller
             }
             catch (Exception ex)
             {
+                Logs.Instance.WriteToFile(Logs.Instance.serviceFile, ex.Message);
+
                 return false;
             }
         }
 
-        public void SetStartup(bool state)
+        public bool SetStartup(bool state)
         {
             try
             {
@@ -51,7 +53,7 @@ namespace TurtleH.Controller
                 {
                     if (state == true)
                     {
-                        key.SetValue(keyName, Application.ExecutablePath.ToString());
+                        key.SetValue(keyName, Application.ExecutablePath);
                         key.Close();
                     }
                     else
@@ -59,11 +61,24 @@ namespace TurtleH.Controller
                         key.DeleteValue(keyName);
                         key.Close();
                     }
+
+                    Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
+                        "Application " + 
+                        (   state == true ?
+                            "registered startup key in " + "\"" + Application.ExecutablePath + "\"" + "successfully"
+                            : "removed startup state successfully"
+                        )
+
+                        );
                 }
+
+                return true;
             }
             catch (Exception ex)
             {
-                
+                Logs.Instance.WriteToFile(Logs.Instance.serviceFile, ex.Message);
+
+                return false;
             }
         }
 

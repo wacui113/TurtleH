@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using TurtleH.Controller;
 
@@ -10,6 +10,7 @@ namespace TurtleH
 
         Timer timer;
 
+        // Needed variable
         private int tickValue;
         private bool stop = false;
         private bool notify = false;
@@ -17,6 +18,10 @@ namespace TurtleH
         public mainForm()
         {
             InitializeComponent();
+
+            Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
+                "Application is executed"
+                );
 
             timer = new Timer();
             timer.Interval = 1000;
@@ -105,18 +110,26 @@ namespace TurtleH
             this.ShowIcon = true;
         }
 
-        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void ChkbStartup_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = sender as CheckBox;
 
-            StartWithWindows.Instance.SetStartup(cb.Checked);
+            // Return old value if it sets startup value failed
+            if(!StartWithWindows.Instance.SetStartup(cb.Checked))
+            {
+                cb.Checked = !cb.Checked;
+            }
         }
 
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TerminatedApp();
+        }
+        
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            TerminatedApp();
+        }
         #endregion
 
         #region Methods
@@ -134,6 +147,10 @@ namespace TurtleH
             pnlSelect.Visible = false;
 
             timer.Enabled = true;
+
+            Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
+                "Timer is started"
+                ); ;
         }
 
 
@@ -163,6 +180,10 @@ namespace TurtleH
                     this.Show();
                 }
             }
+
+            Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
+                "Timer is stopped"
+                ); ;
         }
 
         private string DisplayTime()
@@ -170,8 +191,17 @@ namespace TurtleH
             return (tickValue / 60).ToString("00") + ":" + (tickValue % 60).ToString("00");
         }
 
+        private void TerminatedApp()
+        {
+            Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
+                "Application is terminated"
+                ); ;
+
+            this.Dispose();
+
+            Application.Exit();
+        }
         #endregion
 
-        
     }
 }
