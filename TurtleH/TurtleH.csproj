@@ -104,8 +104,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\StartWithWindows.cs" />
     <Compile Include="Controller\Logs.cs" />
+    <Compile Include="Controller\TimerHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="mainForm.cs">

@@ -34,11 +34,6 @@ namespace TurtleH
 
             notifyIcon.Visible = true;
 
-            if (chkbStartup.Checked = StartWithWindows.Instance.CheckStartupState())
-            {
-                BtnHideToTray_Click(btnHideToTray, new EventArgs());
-                BtnStart_Click(btnStart, new EventArgs());
-            }
         }
 
         #region Events
@@ -113,12 +108,6 @@ namespace TurtleH
         private void ChkbStartup_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = sender as CheckBox;
-
-            // Return old value if it sets startup value failed
-            if(!StartWithWindows.Instance.SetStartup(cb.Checked))
-            {
-                cb.Checked = !cb.Checked;
-            }
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
