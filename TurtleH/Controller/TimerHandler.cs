@@ -9,6 +9,11 @@ namespace TurtleH.Controller
         public static readonly int TwentySeconds = 20;
 
         private int timerValue = TwentyMinutes;
+        public int TimerValue
+        {
+            get => timerValue;
+            private set => timerValue = value;
+        }
 
         public delegate void TimerStateChangedHandler(bool state);
         public event TimerStateChangedHandler TimerStateChanged;
@@ -17,7 +22,7 @@ namespace TurtleH.Controller
         public event TimerTickedHandler TimerTicked;
 
 
-        private Timer mainTimer;
+        private readonly Timer mainTimer;
         public TimerHandler()
         {
             mainTimer = new Timer();
@@ -33,7 +38,7 @@ namespace TurtleH.Controller
             }
             else
             {
-                TimerTicked(timerValue--);
+                TimerTicked(--timerValue);
             }
         }
 
@@ -42,7 +47,7 @@ namespace TurtleH.Controller
             if(mainTimer.Enabled == false)
             {
                 timerValue = timesupvalue;
-                mainTimer.Enabled = true;
+                mainTimer.Start();
 
                 TimerStateChanged(true);
             }
@@ -52,10 +57,15 @@ namespace TurtleH.Controller
         {
             if (mainTimer.Enabled == true)
             {
-                mainTimer.Enabled = false;
+                mainTimer.Stop();
 
                 TimerStateChanged(false);
             }
+        }
+
+        public bool IsRunning()
+        {
+            return mainTimer.Enabled;
         }
     }
 }

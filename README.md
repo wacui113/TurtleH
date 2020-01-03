@@ -1,16 +1,30 @@
-# TurtleH application
+# TurtleH
 
-### Description: This app automatically reminds user resting after selection time
+TurtleH is a application reminds users to rest after working for a long time.
 
-## Main screen
-- User can select reminding time (5 to 90 minutes)
-- User can select resting time (10 to 60 seconds)
-- Auto run after user ends resting progress
+## Author
+- [Ho Kiem Hung](https://github.com/wacui113)
 
-## Resting screen
-- Display resting time and back to main screen after finish
-- User can skip resting progress
+## Functions
+* Remind users to rest after selected time
+By default, the application runs according to 20-20-20 rule (works for 20 minutes - rests for 20 seconds - looks 20 feet away)
 
-### Another function
-- User can hide main screen to windows tray icon
-- Run at windows tray icon with basic function (Start/Stop, Show main screen, Exit app)
+##### Extra function
+
+* Run on Windows tray icon
+* Hide the window
+* Can start with Windows
+* Skip resting
+* Log app service or any error in `/logs/` folder by date
+
+
+### Tutorial
+
+1. Select the countdown time you want the app to remind (Default is 20 minutes)
+
+2. Select the countdown time you want to rest (Default is 20 seconds)
+
+3. Press START button
+
+
+

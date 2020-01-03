@@ -36,15 +36,16 @@
             // 
             // lblTime
             // 
+            this.lblTime.AutoSize = true;
             this.lblTime.BackColor = System.Drawing.Color.Transparent;
             this.lblTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTime.ForeColor = System.Drawing.Color.White;
             this.lblTime.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.lblTime.Location = new System.Drawing.Point(12, 31);
             this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(345, 40);
+            this.lblTime.Size = new System.Drawing.Size(159, 29);
             this.lblTime.TabIndex = 0;
-            this.lblTime.Text = "This screen will close after 00s";
+            this.lblTime.Text = "Rest after 00s";
             this.lblTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btnSkip
@@ -59,12 +60,6 @@
             this.btnSkip.Text = "Skip now";
             this.btnSkip.UseVisualStyleBackColor = false;
             this.btnSkip.Click += new System.EventHandler(this.BtnSkip_Click);
-            // 
-            // timerMain
-            // 
-            this.timerMain.Enabled = true;
-            this.timerMain.Interval = 1000;
-            this.timerMain.Tick += new System.EventHandler(this.TimerMain_Tick);
             // 
             // restForm
             // 
@@ -85,6 +80,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.RestForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

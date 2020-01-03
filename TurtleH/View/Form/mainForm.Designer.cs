@@ -57,7 +57,7 @@
             // 
             // lblDisplayTime
             // 
-            this.lblDisplayTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDisplayTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDisplayTime.ForeColor = System.Drawing.SystemColors.Menu;
             this.lblDisplayTime.Location = new System.Drawing.Point(23, 14);
             this.lblDisplayTime.Name = "lblDisplayTime";
@@ -69,11 +69,11 @@
             // btnStart
             // 
             this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStart.Location = new System.Drawing.Point(227, 29);
+            this.btnStart.Location = new System.Drawing.Point(227, 24);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(109, 40);
             this.btnStart.TabIndex = 1;
-            this.btnStart.Text = "Start";
+            this.btnStart.Text = "START";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.BtnStart_Click);
             // 
@@ -163,6 +163,7 @@
             0,
             0,
             0});
+            this.nudRemind.ValueChanged += new System.EventHandler(this.NudRemind_ValueChanged);
             // 
             // lblMinutes
             // 
@@ -189,7 +190,7 @@
             // pnlDisplay
             // 
             this.pnlDisplay.Controls.Add(this.lblDisplayTime);
-            this.pnlDisplay.Location = new System.Drawing.Point(18, 12);
+            this.pnlDisplay.Location = new System.Drawing.Point(12, 6);
             this.pnlDisplay.Name = "pnlDisplay";
             this.pnlDisplay.Size = new System.Drawing.Size(203, 137);
             this.pnlDisplay.TabIndex = 3;
@@ -210,47 +211,48 @@
             this.showWindowsToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(156, 92);
+            this.contextMenuStrip.Size = new System.Drawing.Size(169, 92);
             // 
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.startToolStripMenuItem.Text = "Start";
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.startToolStripMenuItem.Text = "START";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.StartToolStripMenuItem_Click);
             // 
             // timerToolStripMenuItem
             // 
+            this.timerToolStripMenuItem.Enabled = false;
             this.timerToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.timerToolStripMenuItem.Name = "timerToolStripMenuItem";
-            this.timerToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.timerToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.timerToolStripMenuItem.Text = "00:00";
             // 
             // showWindowsToolStripMenuItem
             // 
             this.showWindowsToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.showWindowsToolStripMenuItem.Name = "showWindowsToolStripMenuItem";
-            this.showWindowsToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.showWindowsToolStripMenuItem.Text = "Show Windows";
+            this.showWindowsToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.showWindowsToolStripMenuItem.Text = "Open the window";
             this.showWindowsToolStripMenuItem.Click += new System.EventHandler(this.ShowWindowsToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // btnHideToTray
             // 
-            this.btnHideToTray.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHideToTray.Location = new System.Drawing.Point(227, 105);
+            this.btnHideToTray.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHideToTray.Location = new System.Drawing.Point(227, 81);
             this.btnHideToTray.Name = "btnHideToTray";
             this.btnHideToTray.Size = new System.Drawing.Size(109, 30);
             this.btnHideToTray.TabIndex = 1;
-            this.btnHideToTray.Text = "Hide to tray";
+            this.btnHideToTray.Text = "Hide window";
             this.btnHideToTray.UseVisualStyleBackColor = true;
             this.btnHideToTray.Click += new System.EventHandler(this.BtnHideToTray_Click);
             // 
@@ -258,7 +260,7 @@
             // 
             this.chkbStartup.AutoSize = true;
             this.chkbStartup.ForeColor = System.Drawing.Color.White;
-            this.chkbStartup.Location = new System.Drawing.Point(27, 168);
+            this.chkbStartup.Location = new System.Drawing.Point(227, 126);
             this.chkbStartup.Name = "chkbStartup";
             this.chkbStartup.Size = new System.Drawing.Size(117, 17);
             this.chkbStartup.TabIndex = 4;
@@ -272,7 +274,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(365, 197);
+            this.ClientSize = new System.Drawing.Size(362, 165);
             this.ContextMenuStrip = this.contextMenuStrip;
             this.Controls.Add(this.chkbStartup);
             this.Controls.Add(this.pnlSelect);
@@ -285,6 +287,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TurtleH ";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.pnlSelect.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudRestIn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudRemind)).EndInit();
