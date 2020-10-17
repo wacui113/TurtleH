@@ -1,3 +1,4 @@
+using Microsoft.Win32;
 using System;
 using System.Windows.Forms;
 using TurtleH.Controller;
@@ -9,7 +10,8 @@ namespace TurtleH
         private readonly TimerHandler timerHandler;
 
         // Force stop variable
-        private bool stop = false;
+        private bool fStop = false;
+        private bool fWindowsPwr_Sta = false;
 
         /** Function
          * 
@@ -61,7 +63,7 @@ namespace TurtleH
         {
             if(timerHandler.IsRunning())
             {
-                stop = true;
+                fStop = true;
                 this.Stop();
 
                 Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
@@ -70,7 +72,7 @@ namespace TurtleH
             }
             else
             {
-                stop = false;
+                fStop = false;
                 this.Start();
 
                 Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
@@ -89,11 +91,13 @@ namespace TurtleH
          */
         private void TimerHandler_TimerStateChanged(bool state)
         {
-            if (state == false && stop == false)
+            DisplayTimerPanel(state);
+              if (state == false && fStop == false && fWindowsPwr_Sta == false)
             {
                 Stop();
                 Start();
             }
+             if(fWindowsPwr_Sta == true) { fWindowsPwr_Sta = false; }
         }
 
         private void TimerHandler_TimerTicked(int value)
@@ -103,7 +107,7 @@ namespace TurtleH
                 notifyIcon.ShowBalloonTip(3, "Take a rest", "Rest after " + value + " seconds !", ToolTipIcon.Info);
             }
 
-            timerToolStripMenuItem.Text = lblDisplayTime.Text = DisplayTime(value);
+            notifyIcon.Text = timerToolStripMenuItem.Text = lblDisplayTime.Text = DisplayTime(value);
         }
 
         private void NudRemind_ValueChanged(object sender, EventArgs e)
@@ -148,8 +152,6 @@ namespace TurtleH
         private void Start()
         {
             timerHandler.Start(Convert.ToInt32(nudRemind.Value) * 60);
-
-            DisplayTimerPanel(true);
         }
 
         private void Stop()
@@ -157,9 +159,8 @@ namespace TurtleH
             timerHandler.Stop();
 
             timerToolStripMenuItem.Text = lblDisplayTime.Text = DisplayTime(Convert.ToInt32(nudRemind.Value) * 60);
-            DisplayTimerPanel(false);
 
-            if (stop == false)
+            if (fStop == false)
             {
                 ShowRestForm();
             }
@@ -169,7 +170,7 @@ namespace TurtleH
         {
             if(Startup.Instance.IsStartWithWindows() == true)
             {
-                BtnStart_Click(btnStart, new EventArgs());
+                Start();
             }
         }
 
@@ -199,7 +200,7 @@ namespace TurtleH
         }
 
         private void ShowRestForm()
-        {
+         {
             using (restForm restF = new restForm
             {
                 countDown = Convert.ToInt32(nudRestIn.Value)
@@ -217,6 +218,10 @@ namespace TurtleH
 
         private void TerminatedApp()
         {
+            // ---
+            timerHandler.TimerTicked -= TimerHandler_TimerTicked;
+            timerHandler.TimerStateChanged -= TimerHandler_TimerStateChanged;
+
             Logs.Instance.WriteToFile(Logs.Instance.serviceFile,
                 "Application stopped"
                 ); ;

@@ -8,3 +8,25 @@ D:\Documents\linhtinh\Release\TurtleH\TurtleH\obj\Debug\TurtleH.csproj.GenerateR
 D:\Documents\linhtinh\Release\TurtleH\TurtleH\obj\Debug\TurtleH.csproj.CoreCompileInputs.cache
 D:\Documents\linhtinh\Release\TurtleH\TurtleH\obj\Debug\TurtleH.exe
 D:\Documents\linhtinh\Release\TurtleH\TurtleH\obj\Debug\TurtleH.pdb
+E:\Study\vs\Thư mục mới (2)\TurtleH\TurtleH\bin\Debug\TurtleH.exe.config
+E:\Study\vs\Thư mục mới (2)\TurtleH\TurtleH\bin\Debug\TurtleH.exe
+E:\Study\vs\Thư mục mới (2)\TurtleH\TurtleH\bin\Debug\TurtleH.pdb
+E:\Study\vs\Thư mục mới (2)\TurtleH\TurtleH\obj\Debug\TurtleH.csprojAssemblyReference.cache
+E:\Study\vs\Thư mục mới (2)\TurtleH\TurtleH\obj\Debug\TurtleH.Properties.Resources.resources
+E:\Study\vs\Thư mục mới (2)\TurtleH\TurtleH\obj\Debug\TurtleH.mainForm.resources
+E:\Study\vs\Thư mục mới (2)\TurtleH\TurtleH\obj\Debug\TurtleH.restForm.resources
+E:\Study\vs\Thư mục mới (2)\TurtleH\TurtleH\obj\Debug\TurtleH.csproj.GenerateResource.cache
+E:\Study\vs\Thư mục mới (2)\TurtleH\TurtleH\obj\Debug\TurtleH.csproj.CoreCompileInputs.cache
+E:\Study\vs\Thư mục mới (2)\TurtleH\TurtleH\obj\Debug\TurtleH.exe
+E:\Study\vs\Thư mục mới (2)\TurtleH\TurtleH\obj\Debug\TurtleH.pdb
+D:\patcoh\sv\csharp\TurtleH\TurtleH\bin\Debug\TurtleH.exe.config
+D:\patcoh\sv\csharp\TurtleH\TurtleH\bin\Debug\TurtleH.exe
+D:\patcoh\sv\csharp\TurtleH\TurtleH\bin\Debug\TurtleH.pdb
+D:\patcoh\sv\csharp\TurtleH\TurtleH\obj\Debug\TurtleH.csprojAssemblyReference.cache
+D:\patcoh\sv\csharp\TurtleH\TurtleH\obj\Debug\TurtleH.Properties.Resources.resources
+D:\patcoh\sv\csharp\TurtleH\TurtleH\obj\Debug\TurtleH.mainForm.resources
+D:\patcoh\sv\csharp\TurtleH\TurtleH\obj\Debug\TurtleH.restForm.resources
+D:\patcoh\sv\csharp\TurtleH\TurtleH\obj\Debug\TurtleH.csproj.GenerateResource.cache
+D:\patcoh\sv\csharp\TurtleH\TurtleH\obj\Debug\TurtleH.csproj.CoreCompileInputs.cache
+D:\patcoh\sv\csharp\TurtleH\TurtleH\obj\Debug\TurtleH.exe
+D:\patcoh\sv\csharp\TurtleH\TurtleH\obj\Debug\TurtleH.pdb

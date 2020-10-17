@@ -38,7 +38,7 @@ namespace TurtleH.Controller
             }
             catch (Exception ex)
             {
-                Logs.Instance.WriteToFile(Logs.Instance.errorFile, "_startup_" + ex.Message);
+                Logs.Instance.WriteToFile(Logs.Instance.errorFile, "_startup_ " + ex.Message);
 
                 return false;
             }
@@ -72,7 +72,7 @@ namespace TurtleH.Controller
             {
                 MessageBox.Show("Enable/Disable startup failed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Logs.Instance.WriteToFile(Logs.Instance.errorFile, "_startup_" + ex.Message);
+                Logs.Instance.WriteToFile(Logs.Instance.errorFile, "_startup_ " + ex.Message);
 
                 return false;
             }
